@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(45deg, #723FCC,#251835, #0E1526,#171A37 ,#A5257A);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: 'Cabin', sans-serif;
+        }
+
+        .container{
+            height: 60%;
+            width: 100%;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 2rem;
+        }
+
+        .pricing-tabs{
+            flex-basis: 300px;
+
+            box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.522);
+        }
+
+        .upper{
+            height: 75%;
+            background-color: #536278;
+            border-radius: 15px 15px 0px 0px;
+
+            display: flex;
+            flex-direction: column;
+            
+        }
+        .down{
+            height: 25%;
+            background-color: #1C2738;
+            border-radius: 0px 0px 15px 15px;
+        }
+
+        p{
+            color: white;
+            text-align: center;
+        }
+
+        .month{
+            padding-top: 40px;
+            font-size: 1.5rem;
+        }
+
+        .price{
+            padding-top: 5px;
+            font-size: 4rem;
+        }
+
+        span{
+            font-size: 1rem;
+        }
+        button{
+            width: 200px;
+            margin: auto;
+            padding: 10px;
+
+            font-size: 1.3rem;
+            
+            background-color: transparent;
+            color: white;
+
+            border-radius: 50px;
+            border: 2px solid #F248BD;
+
+            cursor: pointer;
+
+            transition: .5s;
+        }
+
+        button:hover{
+            background-color:#4c5a6e;
+
+            transition: .5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="pricing-tabs">
+            <div class="upper">
+                <p class="month">1 month</p>
+                <p class = "price"><span>$</span>12.95</p>
+                <p class="monthly">/Monthly</p>
+
+                <button>Select</button>
+            </div>
+            <div class="down"></div>
+        </div>
+        <div class="pricing-tabs">
+            <div class="upper">
+                <p class="month">6 months</p>
+                <p class = "price"><span>$</span>7.45</p>
+                <p class="monthly">/Monthly</p>
+
+                <button>Select</button>
+            </div>
+            <div class="down"></div>
+        </div>
+        <div class="pricing-tabs">
+            <div class="upper">
+                <p class="month">12 months</p>
+                <p class = "price"><span>$</span>6.95</p>
+                <p class="monthly">/Monthly</p>
+
+                <button>Select</button>
+            </div>
+            <div class="down"></div>
+        </div>
+    </div>
+</body>
+</html>
