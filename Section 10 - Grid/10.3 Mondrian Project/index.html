@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mondrian Project</title>
+  <style>
+    /* 
+    Write your CSS here 
+    Gap Colour: #000
+    White: #F0F1EC
+    Red: #E72F24
+    Black: #232629
+    Blue: #004592
+    Yellow: #F9D01E
+
+    For dimensions, see dimensions.png image.
+    HINT: Remember you can't change the properties of grid lines.
+    But grid lines are transparent!
+    */
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      background-color: #252525;
+    }
+
+    .frame{
+      height: 748px;
+      width: 748px;
+      background-color: black;
+
+      display: grid;
+      gap: 9px;
+      grid-template-columns: 320px 1fr;
+      grid-template-rows: 414px 1fr;
+
+      margin: auto;
+    }
+
+    .red{
+      background-color: #E72F24;
+    }
+    .white{
+      background-color: #F0F1EC;
+    }
+    .panel{
+      background-color: #000;
+      
+      display: grid;
+      gap: 9px;
+
+      grid-template-columns: 320px;
+      grid-template-rows: 1fr 20px;
+    }
+
+    .panel2{
+      background-color: black;
+
+      gap: 9px;
+
+      display: grid;
+      
+      grid-template-rows: 130px 155px 20px;
+      grid-template-columns: 198px 153px 50px;
+    }
+
+    .panel2 > .white{
+      grid-row: span 2;
+    }
+
+    .panel2 > .white1{
+      background-color: #f0f1ec;
+
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .yellow{
+      background-color: #F9D01E;
+    }
+
+    .black{
+      background-color: #232629;
+    }
+
+    .blue{
+      background-color: #004592;
+      border-bottom: 10px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Write your HTML here -->
+  <div class="frame">
+    <div class="red"></div>
+    <div class="white"></div>
+    
+    <div class="panel">
+      <div class="white"></div>
+      <div class="white"></div>
+    </div>
+    
+    <div class="panel2">
+      <div class="white1"></div>
+      <div class="blue"></div>
+      <div class="white"></div>
+      <div class="yellow"></div>
+      <div class="black"></div>
+    </div>
+
+  </div>
+</body>
+
+</html>
