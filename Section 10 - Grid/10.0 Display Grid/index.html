@@ -8,6 +8,10 @@
     /* Each square should be 100px by 100px */
     /* My colours for white: #f0d9b5, black: #b58863 */
 
+    div{
+        transition: .2s;
+      }
+
     .container{
       border: 2px solid brown;
       
@@ -34,6 +38,25 @@
     .black{
       background-color: #b58863;
     }
+
+
+    @media (max-width: 830px){
+      
+      div{
+        transition: .2s;
+      }
+      
+      .container{
+        height: 400px;
+        width: 400px;
+      }
+
+      .container div{
+        height: 50px;
+        width: 50px;
+      }
+    }
+
   </style>
 </head>
 
