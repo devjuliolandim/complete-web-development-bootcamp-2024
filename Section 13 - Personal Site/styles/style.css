@@ -15,7 +15,19 @@ body{
 
 }
 
-main{
+div{
+    border: 2px solid black;
+}
+
+header{
+    border-bottom: 2px solid black;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.web-screen{
     
     width: 70%;
     height: 90%;
@@ -23,23 +35,40 @@ main{
     border: 2px solid black;
 
     border-radius: 20px;
-}
 
-header{
-    border-bottom: 2px solid black;
-    height: 30px;
-
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    display: grid;
+    grid-template-rows: 30px 1fr;
+    
 }
 
 .b-balls{
-    background-color: black;
+    background-color: #252525;
     width: 20px;
     height: 20px;
 
     border-radius: 50%;
 
     margin-right: 10px;
+}
+
+.profile-pic{
+    width: 250px;
+    height: 400px;
+
+    border-radius: 20px;
+
+    margin: 20px;
+}
+
+.profile-pic > header{
+    height: 30px;
+}
+
+.profile-pic > img{
+    width: 120px;
+    display: block;
+    border: 2px solid black;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 50%;
 }
