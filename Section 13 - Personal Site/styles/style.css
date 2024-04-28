@@ -27,6 +27,31 @@ header{
     align-items: center;
 }
 
+main{
+    display: grid;
+    grid-template-columns: 280px 1fr;
+
+    gap: 10px;
+}
+
+h2{
+    font-family: 'Oswald', sans-serif;
+}
+
+ul{
+    list-style: none;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+li{
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 5px;
+}
+svg{
+    height: 25px;
+    width: 25px;
+}
 .web-screen{
     
     width: 70%;
@@ -41,7 +66,7 @@ header{
     
 }
 
-.b-balls{
+.balls{
     background-color: #252525;
     width: 20px;
     height: 20px;
@@ -51,8 +76,11 @@ header{
     margin-right: 10px;
 }
 
+.clean{
+    background-color: transparent;
+}
+
 .profile-pic{
-    width: 250px;
     height: 400px;
 
     border-radius: 20px;
@@ -62,6 +90,10 @@ header{
 
 .profile-pic > header{
     height: 30px;
+}
+
+.profile-pic > h2{
+margin-left: 10px;
 }
 
 .profile-pic > img{
