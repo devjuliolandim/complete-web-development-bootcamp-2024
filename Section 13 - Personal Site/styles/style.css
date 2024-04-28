@@ -5,20 +5,18 @@
 }
 
 body{
-    background: transparent url('../assets/images/background.jpg') center center no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
 
+    background-color: #fdf5ec;
     width: 100vw;
     height: 100vh;
-
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 main{
-    background-color: #FFFEF7;
+    
     width: 70%;
     height: 90%;
 
@@ -27,7 +25,7 @@ main{
     border-radius: 20px;
 }
 
-.header{
+header{
     border-bottom: 2px solid black;
     height: 30px;
 
@@ -44,25 +42,4 @@ main{
     border-radius: 50%;
 
     margin-right: 10px;
-}
-
-.pic{
-    width: 200px;
-    height: 300px;
-
-    background-color: #FFFEF7;
-
-    border: 2px solid black;
-
-    border-radius: 20px;
-}
-
-.squares{
-    border: 2px solid black;
-    width: 20px;
-
-    margin-right: 5px;
-
-    text-align: center;
-    font-weight: 900;
 }
