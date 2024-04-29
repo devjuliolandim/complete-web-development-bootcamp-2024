@@ -87,7 +87,6 @@ li > a:hover{
 .web-screen{
     
     width: 70%;
-    
 
     border: 2px solid black;
     box-shadow: 9px 9px 0px black;
@@ -177,6 +176,35 @@ margin-left: 10px;
     }
 }
 
-@media (max-width: 480px){
+@media (max-width: 780px){
     
+    body{
+        display: block;
+    }
+
+    main{
+        display: grid;
+        grid-template-rows: 350px 700px;
+        grid-template-columns: 296.95px;
+        gap: 20px;
+    }
+
+    #about{
+        height: 658px;
+    }
+
+    .web-screen{
+        width: 80%;
+        margin-left: 10px;
+    }
+
+    .profile-pic{
+        width: 150px;
+        margin: auto;
+        margin-top: 10px;
+    }
+
+    .inner{
+        flex-wrap: wrap;
+    }
 }
