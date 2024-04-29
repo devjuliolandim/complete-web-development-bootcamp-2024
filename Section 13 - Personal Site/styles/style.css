@@ -25,6 +25,8 @@ header{
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
+    height: 30px;
 }
 
 main{
@@ -34,8 +36,24 @@ main{
     gap: 10px;
 }
 
+h1{
+    font-family: 'Oswald', sans-serif;
+    margin-left: 30px;
+    margin-top: 10px;
+    font-size: 2.2rem;
+    text-decoration: underline;
+}
+
 h2{
     font-family: 'Oswald', sans-serif;
+}
+
+p{
+    font-family: 'DM Sans', sans-serif;
+    margin: 10px;
+    text-indent: 20px;
+    font-size: 1.2rem;
+    text-align: justify;
 }
 
 ul{
@@ -53,10 +71,16 @@ svg{
     width: 25px;
 }
 li > a{
-    margin-bottom: 10px;
+    padding-left: 10px;
     position: absolute;
-    right: 280px;
     font-size: 1.2rem;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+li > a:hover{
+    text-decoration: underline;
 }
 .web-screen{
     
@@ -88,15 +112,11 @@ li > a{
 }
 
 .profile-pic{
-    height: 400px;
+    height: 360px;
 
     border-radius: 20px;
 
     margin: 20px;
-}
-
-.profile-pic > header{
-    height: 30px;
 }
 
 .profile-pic > h2{
@@ -110,4 +130,25 @@ margin-left: 10px;
     margin: auto;
     margin-top: 20px;
     border-radius: 50%;
+}
+
+#about{
+    border: 2px solid black;
+    margin: 20px;
+    border-radius: 20px;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    margin: auto;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    border: 3px solid black;
+}
+
+.container > img{
+    height: 56px;
 }
