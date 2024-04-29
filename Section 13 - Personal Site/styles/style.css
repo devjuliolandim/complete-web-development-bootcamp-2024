@@ -5,15 +5,18 @@
 }
 
 body{
-
     background-color: #fdf5ec;
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
+
+span{
+    font-weight: 900;
+}
+
 
 div{
     border: 2px solid black;
@@ -32,7 +35,6 @@ header{
 main{
     display: grid;
     grid-template-columns: 280px 1fr;
-
     gap: 10px;
 }
 
@@ -85,7 +87,7 @@ li > a:hover{
 .web-screen{
     
     width: 70%;
-    height: 90%;
+    
 
     border: 2px solid black;
     box-shadow: 9px 9px 0px black;
@@ -136,19 +138,45 @@ margin-left: 10px;
     border: 2px solid black;
     margin: 20px;
     border-radius: 20px;
+    height: 500px;
 }
 
 .container{
+    height: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.inner{
     display: flex;
     justify-content: space-between;
     width: 500px;
-    margin: auto;
-    margin-top: 20px;
     padding: 20px;
     border-radius: 20px;
-    border: 3px solid black;
+    border: 2px solid black;
 }
 
-.container > img{
+.inner > img{
     height: 56px;
+}
+
+@media (max-width:1200px){
+    main{
+        display: grid;
+        grid-template-rows: 350px 1fr;
+        grid-template-columns: none;
+        gap: 20px;
+    }
+
+    .profile-pic{
+        width: 250px;
+        margin: auto;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px){
+    
 }
