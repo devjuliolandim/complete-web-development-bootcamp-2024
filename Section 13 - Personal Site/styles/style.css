@@ -52,12 +52,19 @@ svg{
     height: 25px;
     width: 25px;
 }
+li > a{
+    margin-bottom: 10px;
+    position: absolute;
+    right: 280px;
+    font-size: 1.2rem;
+}
 .web-screen{
     
     width: 70%;
     height: 90%;
 
     border: 2px solid black;
+    box-shadow: 9px 9px 0px black;
 
     border-radius: 20px;
 
