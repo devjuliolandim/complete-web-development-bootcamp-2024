@@ -5,8 +5,8 @@ function rollDices(){
     let img2 = document.querySelector('.img2');
     let h1 = document.querySelector('h1');
 
-    img1.setAttribute('src', pickImage(dice1));
-    img2.setAttribute('src', pickImage(dice2));
+    img1.setAttribute('src', './images/dice' + dice1 + '.png');
+    img2.setAttribute('src', './images/dice' + dice2 + '.png');
 
     //Change H1
     if(dice1 > dice2){
@@ -18,22 +18,6 @@ function rollDices(){
     }
 }
 
-function pickImage(num){
-    switch(num){
-        case 1:
-            return "./images/dice1.png" 
-        case 2:
-            return "./images/dice2.png" 
-        case 3:
-            return "./images/dice3.png" 
-        case 4:
-            return "./images/dice4.png"
-        case 5:
-            return "./images/dice5.png"
-        case 6:
-            return "./images/dice6.png"                        
-    }
-}
 
 window.addEventListener('load',function(){
     rollDices();
