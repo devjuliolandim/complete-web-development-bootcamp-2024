@@ -176,7 +176,7 @@ margin-left: 10px;
     }
 }
 
-@media (max-width: 780px){
+@media (max-width: 768px){
     
     body{
         display: block;
@@ -185,7 +185,6 @@ margin-left: 10px;
     main{
         display: grid;
         grid-template-rows: 350px 700px;
-        grid-template-columns: 296.95px;
         gap: 20px;
     }
 
@@ -194,7 +193,7 @@ margin-left: 10px;
     }
 
     .web-screen{
-        width: 80%;
+        width: 90%;
         margin-left: 10px;
     }
 
@@ -206,5 +205,17 @@ margin-left: 10px;
 
     .inner{
         flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 600px){
+    
+    body{
+        overflow-x: hidden;
+    }
+    
+    main{
+        grid-template-columns:334px;
+        margin: auto;
     }
 }
