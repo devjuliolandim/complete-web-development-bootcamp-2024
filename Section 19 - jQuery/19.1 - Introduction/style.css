@@ -2,3 +2,33 @@ body{
     background-color: #252525;
 }
 
+div{
+    height: 100px;
+    width: 100px;
+
+    position: relative;
+
+    top: 50px;
+    left: 25px;
+}
+h1{
+    color: yellow;
+    font-size: 5rem;
+}
+.red-div{
+    background-color: red;
+}
+
+.blue-div{
+    background-color: blue;
+}
+
+.large{
+    font-size: 8rem;
+    font-style: italic;
+    color: yellow;
+}
+
+.purple{
+    color: purple;
+}
