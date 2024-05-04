@@ -12,7 +12,7 @@ $(document).on('keypress', function(event){
     if(event.key === 'a'){
         
         $(document).off('keypress');
-
+        HEADER.text("Level " + levelCount);
 
     }
 })
