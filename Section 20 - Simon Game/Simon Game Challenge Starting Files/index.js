@@ -12,7 +12,10 @@ $(document).on('keypress', function(event){
     if(event.key === 'a'){
         
         $(document).off('keypress');
-        HEADER.text("Level " + levelCount);
+        
+        HEADER.text("Level "+ levelCount);
+        blinkButton();
+
 
     }
 })
@@ -38,4 +41,26 @@ function playSound(number){
     }
 }
 
+function verifyClick(){
 
+}
+
+function blinkButton(){
+    
+    let num = randomize();
+
+    BUTTONS.eq(num).addClass("pressed");
+    playSound(num);
+
+    setTimeout(()=>{
+        BUTTONS.eq(num).removeClass("pressed");
+    },200);
+}
+
+function randomize(){
+    randomNumbers.push(Math.floor(Math.random()*4));
+
+    let num = randomNumbers[randomNumbers.length - 1];
+
+    return num;
+}
