@@ -1,11 +1,12 @@
 //Variables
 let levelCount = 1;
-let gameStart = false;
-let randomNumbers = [];
+let drawnNumbers = [];
+let arrayClicked = [];
 
 //DOM Contants
 const BUTTONS = $(".btn");
 const HEADER = $("h1");
+const BODY = $("body");
 
 //Main
 $(document).on('keypress', function(event){
@@ -43,8 +44,22 @@ function playSound(number){
 function verifyClick(btn){
     
     var index = BUTTONS.index($(btn.target));
+    arrayClicked.push(index);
+    
+    
+    //Verify if the button clicked is correct!
+    if(drawnNumbers[arrayClicked.length - 1] === index){
+        //Verify if the drawnNumbers.length is equal to arrayClicked!
+        if(arrayClicked.length == drawnNumbers.length){
+            arrayClicked = [];
+            levelCount++;
+            HEADER.text("Level "+ levelCount);
+            blinkButton();
+        }
+    }else{
+        errorScreen()
+    }
 
-    alert("Index: " + index);
 }
 
 function blinkButton(){
@@ -60,9 +75,38 @@ function blinkButton(){
 }
 
 function randomize(){
-    randomNumbers.push(Math.floor(Math.random()*4));
+    drawnNumbers.push(Math.floor(Math.random()*4));
 
-    let num = randomNumbers[randomNumbers.length - 1];
+    let num = drawnNumbers[drawnNumbers.length - 1];
 
     return num;
+}
+
+function errorScreen(){
+    var audio = new Audio('sounds/wrong.mp3');
+    audio.play();
+
+    BODY.addClass("red");
+    setTimeout(()=>{
+        BODY.removeClass("red");
+    },250)
+    
+    HEADER.text("You clicked in the wrong button! Press A Key to restart the game!");
+
+    levelCount = 1;
+    drawnNumbers = [];
+    arrayClicked = [];
+
+    BUTTONS.off("click", verifyClick)
+    
+    $(document).on("keypress", function (event){
+        if(event.key === 'a'){
+            $(document).off('keypress');
+            HEADER.text("Level "+ levelCount);
+            blinkButton();
+
+            BUTTONS.on('click', verifyClick)
+        }
+    })
+
 }
