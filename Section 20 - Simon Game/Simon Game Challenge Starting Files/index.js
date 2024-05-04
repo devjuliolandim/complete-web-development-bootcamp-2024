@@ -12,11 +12,10 @@ $(document).on('keypress', function(event){
     if(event.key === 'a'){
         
         $(document).off('keypress');
-        
         HEADER.text("Level "+ levelCount);
         blinkButton();
 
-
+        BUTTONS.on('click', verifyClick)
     }
 })
 
@@ -41,8 +40,11 @@ function playSound(number){
     }
 }
 
-function verifyClick(){
+function verifyClick(btn){
+    
+    var index = BUTTONS.index($(btn.target));
 
+    alert("Index: " + index);
 }
 
 function blinkButton(){
