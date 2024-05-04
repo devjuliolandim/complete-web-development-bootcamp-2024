@@ -14,7 +14,7 @@ $(document).on('keypress', function(event){
         
         $(document).off('keypress');
         HEADER.text("Level "+ levelCount);
-        blinkButton();
+        randomizeButton();
 
         BUTTONS.on('click', verifyClick)
     }
@@ -42,10 +42,8 @@ function playSound(number){
 }
 
 function verifyClick(btn){
-    
     var index = BUTTONS.index($(btn.target));
     arrayClicked.push(index);
-    
     
     //Verify if the button clicked is correct!
     if(drawnNumbers[arrayClicked.length - 1] === index){
@@ -54,7 +52,7 @@ function verifyClick(btn){
             arrayClicked = [];
             levelCount++;
             HEADER.text("Level "+ levelCount);
-            blinkButton();
+            randomizeButton();
         }
     }else{
         errorScreen()
@@ -62,7 +60,7 @@ function verifyClick(btn){
 
 }
 
-function blinkButton(){
+function randomizeButton(){
     
     let num = randomize();
 
@@ -103,7 +101,7 @@ function errorScreen(){
         if(event.key === 'a'){
             $(document).off('keypress');
             HEADER.text("Level "+ levelCount);
-            blinkButton();
+            randomizeButton();
 
             BUTTONS.on('click', verifyClick)
         }
