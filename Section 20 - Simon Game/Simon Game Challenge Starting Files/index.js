@@ -11,14 +11,17 @@ const BODY = $("body");
 //Main
 $(document).on('keypress', function(event){
     if(event.key === 'a'){
-        
-        $(document).off('keypress');
-        HEADER.text("Level "+ levelCount);
-        randomizeButton();
-
-        BUTTONS.on('click', verifyClick)
+        initializeGame();
     }
 })
+
+function initializeGame() {
+    $(document).off('keypress');
+    HEADER.text("Level " + levelCount);
+    randomizeButton();
+
+    BUTTONS.on('click', verifyClick);
+}
 
 function playSound(number){
     switch(number){
@@ -49,15 +52,19 @@ function verifyClick(btn){
     if(drawnNumbers[arrayClicked.length - 1] === index){
         //Verify if the drawnNumbers.length is equal to arrayClicked!
         if(arrayClicked.length == drawnNumbers.length){
-            arrayClicked = [];
-            levelCount++;
-            HEADER.text("Level "+ levelCount);
-            randomizeButton();
+            nextLevel();
         }
     }else{
         errorScreen()
     }
 
+}
+
+function nextLevel() {
+    arrayClicked = [];
+    levelCount++;
+    HEADER.text("Level " + levelCount);
+    randomizeButton();
 }
 
 function randomizeButton(){
