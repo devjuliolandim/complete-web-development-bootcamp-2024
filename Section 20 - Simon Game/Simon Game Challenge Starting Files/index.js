@@ -77,14 +77,7 @@ function nextLevel() {
 function randomizeButton(){
     
     let num = randomize();
-
-   /* BUTTONS.eq(num).addClass("pressed");
-    playSound(num);
-
-    setTimeout(()=>{
-        BUTTONS.eq(num).removeClass("pressed");
-    },200);*/
-
+    
     BUTTONS.eq(num).animate({opacity: 0.5}, "fast");
     playSound(num);
 
