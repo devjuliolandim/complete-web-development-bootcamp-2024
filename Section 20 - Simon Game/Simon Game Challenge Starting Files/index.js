@@ -45,13 +45,17 @@ function playSound(number){
 }
 
 function verifyClick(btn){
-    var index = BUTTONS.index($(btn.target));
+    var button = $(btn.target);
+    var index = BUTTONS.index(button);
+    
     arrayClicked.push(index);
     
-    $(btn.target).addClass("pressed")
+    button.addClass("pressed")
     setTimeout(()=>{
-        $(btn.target).removeClass("pressed")
+        button.removeClass("pressed")
     },100)
+
+    playSound(index);
 
     //Verify if the button clicked is correct!
     if(drawnNumbers[arrayClicked.length - 1] === index){
@@ -77,7 +81,7 @@ function nextLevel() {
 function randomizeButton(){
     
     let num = randomize();
-    
+
     BUTTONS.eq(num).animate({opacity: 0.5}, "fast");
     playSound(num);
 
