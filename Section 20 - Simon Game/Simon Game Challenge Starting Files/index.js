@@ -48,6 +48,11 @@ function verifyClick(btn){
     var index = BUTTONS.index($(btn.target));
     arrayClicked.push(index);
     
+    $(btn.target).addClass("pressed")
+    setTimeout(()=>{
+        $(btn.target).removeClass("pressed")
+    },100)
+
     //Verify if the button clicked is correct!
     if(drawnNumbers[arrayClicked.length - 1] === index){
         //Verify if the drawnNumbers.length is equal to arrayClicked!
@@ -73,12 +78,19 @@ function randomizeButton(){
     
     let num = randomize();
 
-    BUTTONS.eq(num).addClass("pressed");
+   /* BUTTONS.eq(num).addClass("pressed");
     playSound(num);
 
     setTimeout(()=>{
         BUTTONS.eq(num).removeClass("pressed");
-    },200);
+    },200);*/
+
+    BUTTONS.eq(num).animate({opacity: 0.5}, "fast");
+    playSound(num);
+
+    setTimeout(()=>{
+        BUTTONS.eq(num).animate({opacity: 1.0}, "fast");
+    },100);
 }
 
 function randomize(){
