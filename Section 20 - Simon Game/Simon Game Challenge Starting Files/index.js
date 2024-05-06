@@ -52,7 +52,9 @@ function verifyClick(btn){
     if(drawnNumbers[arrayClicked.length - 1] === index){
         //Verify if the drawnNumbers.length is equal to arrayClicked!
         if(arrayClicked.length == drawnNumbers.length){
-            nextLevel();
+            setTimeout(()=>{
+                nextLevel();
+            }, 500)
         }
     }else{
         errorScreen()
