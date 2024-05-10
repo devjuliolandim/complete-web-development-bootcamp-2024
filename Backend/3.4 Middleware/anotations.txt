@@ -1,0 +1,4 @@
+"app.use" Método do Express.js que adiciona middleware à pilha de middleware.
+
+O que é um middleware?
+-> Middleware são funções que têm acesso ao objeto de solicitação (request), ao objeto de resposta (response) e à próxima função de middleware no ciclo de solicitação-resposta do seu aplicativo. 
