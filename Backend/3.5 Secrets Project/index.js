@@ -3,14 +3,13 @@
 //The password is ILoveProgramming
 import express from "express";
 import {dirname} from "path";
-import { fileURLToPath, pathToFileURL } from "url";
-import bodyParser from "body-parser";
+import { fileURLToPath,} from "url";
 
 const PORT = 3000;
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: true}));
 
 function verify(req, res, next){
     let password = req.body.password;
