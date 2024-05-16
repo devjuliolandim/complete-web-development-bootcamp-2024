@@ -8,9 +8,10 @@ const port = 3000;
 //Hint 1: CSS files are static files!
 //Hint 2: The header and footer are partials.
 //Hint 3: Add the CSS link in header.ejs
-
 //Step 4 - Add a dynamic year to the footer.
 //Hint: Google to find out how to get the current year using JS.
+
+app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -26,6 +27,11 @@ app.post("/submit", (req, res) => {
   //scroll down to see the two arrays.
   //2. Send the index.ejs as a response and add the adjective and noun to the res.render
   //3. Test to make sure that the random words display in the h1 element in index.ejs
+
+  const adjective = adj[Math.floor(Math.random() * adj.length)];
+  const name = noun[Math.floor(Math.random() * noun.length)];
+
+  res.render("index.ejs", {adjective, name});
 });
 
 app.listen(port, () => {
