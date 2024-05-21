@@ -16,15 +16,23 @@
   </form>
   <div id="recipeContainer" class="hidden">
 
+    <% const ingredients = recipe.ingredients %>
     <% if(locals.recipe) {%>
       <h2><%= recipe.name %></h2>
 
 
       <h3>Ingredients:</h3>
       <ul id="ingredientsList">
-        <li>Protein name, protein preparation</li>
-        <li>Salsa name</li>
-        <li>Every other topping</li>
+        <li><%= ingredients.protein.name %>, <%= ingredients.protein.preparation %></li>
+        
+        <li><%= ingredients.salsa.name %>, <%= ingredients.salsa.spiciness %></li>
+
+        <% ingredients.toppings.forEach(topping =>{ %>
+          <li>
+            <%= topping.quantity %> of <%=topping.name%>
+          </li>
+
+        <%})%>
       </ul>
     <%} else {%>
     <!-- If no recipe yet, show: -->
