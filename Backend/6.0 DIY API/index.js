@@ -68,6 +68,32 @@ app.put("/jokes/:id", (req, res)=>{
 });
 
 //6. PATCH a joke
+app.patch("/jokes/:id", (req, res)=>{
+  
+  const jokeID = parseInt(req.params.id);  
+  const jokeText = req.body.text;
+  const jokeType = req.body.type;
+
+  if (isNaN(jokeID) || jokeID <= 0 || jokeID > jokes.length) {
+    return res.status(404).json({ message: "Joke not found" });
+  }
+
+  const index = jokes.findIndex((joke)=> joke.id === jokeID);
+
+  if(index === -1){
+    return res.status(501).send("Id not found!");
+  }
+
+  if(jokeText !== undefined){
+    jokes[index].jokeText = jokeText;
+  }  
+  
+  if(jokeType !== undefined){
+    jokes[index].jokeType = jokeType;
+  }
+
+  res.json(jokes[index]);
+});
 
 //7. DELETE Specific joke
 
