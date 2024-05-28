@@ -8,14 +8,51 @@ const masterKey = "4VGP2DN-6EWM4SJ-N6FGRHV-Z3PR3TT";
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //1. GET a random joke
+app.get("/random", (req, res)=>{
+  const randomIndex = Math.floor(Math.random() * jokes.length);
+  res.json(jokes[randomIndex]);
+});
 
 //2. GET a specific joke
+app.get("/jokes/:id", (req,res)=>{
+
+  const jokeID = parseInt(req.params.id);  
+
+  const jokeFound = jokes.find(j => j.id === jokeID);  
+
+  if (!jokeFound) {
+    res.status(404).send("No jokes with that id!");  
+  } else {
+    res.json(jokeFound);  
+  }
+});
 
 //3. GET a jokes by filtering on the joke type
+app.get("/filter", (req, res)=>{
+  const typeReq = req.query.type;
+
+  const filteredJokes = jokes.filter((joke)=> joke.jokeType === typeReq);
+
+  res.json(filteredJokes);
+});
 
 //4. POST a new joke
+app.post("/jokes", (req, res)=>{
+  const newJoke = {
+    id: jokes.length + 1,
+    jokeText: req.body.text,
+    jokeType: req.body.type
+  }
+
+  jokes.push(newJoke);
+
+  res.json(newJoke);
+});
 
 //5. PUT a joke
+app.put("/jokes", ()=>{
+
+});
 
 //6. PATCH a joke
 
