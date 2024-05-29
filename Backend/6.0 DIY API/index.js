@@ -16,9 +16,9 @@ app.get("/random", (req, res)=>{
 //2. GET a specific joke
 app.get("/jokes/:id", (req,res)=>{
 
-  const jokeID = parseInt(req.params.id);  
+  const reqID = parseInt(req.params.id);  
 
-  const jokeFound = jokes.find(j => j.id === jokeID);  
+  const jokeFound = jokes.find(j => j.id === reqID);  
 
   if (!jokeFound) {
     res.status(404).send("No jokes with that id!");  
@@ -51,15 +51,15 @@ app.post("/jokes", (req, res)=>{
 
 //5. PUT a joke
 app.put("/jokes/:id", (req, res)=>{
-  const jokeID = parseInt(req.params.id);
+  const reqID = parseInt(req.params.id);
 
   const replacementJoke = {
-    id: jokeID,
+    id: reqID,
     jokeText: req.body.text,
     jokeType: req.body.type
   }
 
-  const searchIndex = jokes.findIndex((joke)=> joke.id === jokeID);
+  const searchIndex = jokes.findIndex((joke)=> joke.id === reqID);
 
   jokes[searchIndex] = replacementJoke;
 
@@ -70,15 +70,15 @@ app.put("/jokes/:id", (req, res)=>{
 //6. PATCH a joke
 app.patch("/jokes/:id", (req, res)=>{
   
-  const jokeID = parseInt(req.params.id);  
+  const reqID = parseInt(req.params.id);  
   const jokeText = req.body.text;
   const jokeType = req.body.type;
 
-  if (isNaN(jokeID) || jokeID <= 0 || jokeID > jokes.length) {
+  if (isNaN(reqID) || reqID <= 0 || reqID > jokes.length) {
     return res.status(404).json({ message: "Joke not found" });
   }
 
-  const index = jokes.findIndex((joke)=> joke.id === jokeID);
+  const index = jokes.findIndex((joke)=> joke.id === reqID);
 
   if(index === -1){
     return res.status(501).send("Id not found!");
@@ -96,7 +96,21 @@ app.patch("/jokes/:id", (req, res)=>{
 });
 
 //7. DELETE Specific joke
+app.delete("/jokes/:id", (req,res)=>{
 
+  const reqID = parseInt(req.params.id); // Captures the id that came from the req
+  if(reqID <= 0 || isNaN(reqID) || reqID > jokes.length){ // Verify if it's a valid number
+    res.send(`${reqID} is not a valid ID`);
+  }
+
+  const searchIndex = jokes.findIndex((joke)=> joke.id === reqID); // Finds the index of the ID
+  if(searchIndex > -1){ // Verifies if the index was found
+    jokes.splice(searchIndex, 1); // Delete the joke
+    res.send(`The joke in the id ${reqID} was deleted`);
+  }else{
+    res.status(404).send(`The id ${reqID} wasn't found`);
+  }
+});
 //8. DELETE All jokes
 
 app.listen(port, () => {
