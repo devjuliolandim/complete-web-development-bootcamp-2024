@@ -1,5 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
+import pkg from 'body-parser';
+const { json } = pkg;
 
 const app = express();
 const port = 4000;
@@ -41,12 +43,59 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Write your code here//
 
 //CHALLENGE 1: GET All posts
+app.get("/posts", (req, res)=>{
+  res.send(JSON.stringify(posts));
+});
 
 //CHALLENGE 2: GET a specific post by id
+app.get("/posts/:id", (req, res)=>{
+  const id = req.params.id;
+  const searchIndex = posts.findIndex((post)=> post.id === id);
+  res.send(JSON.stringify(posts[searchIndex]));
+});
 
 //CHALLENGE 3: POST a new post
+app.post("/posts", (req, res)=>{
+ // console.log(req.body); // { title: 'a', content: 'a', author: 'a' }
+
+  const newID = posts.length  + 1;
+
+  const newPost = {
+    id: newID,
+    title: req.body.title,
+    content: req.body.content,
+    author: req.body.author,
+    date: new Date()
+  }
+
+  posts.push(newPost);
+  res.send(JSON.stringify(newPost));
+});
 
 //CHALLENGE 4: PATCH a post when you just want to update one parameter
+app.patch("/posts/:id", (req, res)=>{
+  
+  const id = req.params.id;
+  const searchIndex = posts.findIndex((post)=> post.id === id);
+
+  if(searchIndex === -1){
+    return res.status(404).send({error: "Post not founded"});
+  }
+
+  const allowedUpdates = ["title", "content", "author"]; // All the updates that are allowed
+  const updates = Object.keys(req.body); // Basically i'm getting all the updates send by the user
+
+  updates.forEach((update) => {
+    if (allowedUpdates.includes(update)) {
+      posts[searchIndex][update] = req.body[update];
+    }
+  });
+
+  //UPDATE DATA
+  posts[searchIndex].date = new Date();
+
+  res.status(200).send(posts[searchIndex]);
+});
 
 //CHALLENGE 5: DELETE a specific post by providing the post id.
 
