@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border-radius: 20px;
+        }
+
+        body{
+            background-color: #252525;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+
+        main{
+            width: 90%;
+            height: 300px;
+
+            background-color: rgb(185, 185, 185);
+
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+
+            overflow-y: auto;
+        }
+
+        button{
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .random-box{
+            height: 300px;
+            width: 300px;
+        }
+
+        ::-webkit-scrollbar{
+            width: 15px;
+        }
+
+        ::-webkit-scrollbar-track{
+            background: #d1e5ff;
+        }
+
+        ::-webkit-scrollbar-thumb{
+            background: linear-gradient(#642bff, #ff22e6);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+
+    </main>
+    <button id = "btn">ADD A NOTE</button>
+
+    <script>
+
+        const BTN = document.querySelector("#btn");
+        const BOX = document.querySelector("main");
+
+        BTN.addEventListener("click", ()=>{
+            var newDiv = document.createElement("div");
+            newDiv.className = "random-box";
+            newDiv.style.backgroundColor = `rgb(${randomNum()},${randomNum()},${randomNum()})`;
+
+
+            BOX.appendChild(newDiv);
+        });
+
+
+        function randomNum(){
+            return Math.floor(Math.random()* 256);
+        }
+    </script>
+</body>
+</html>
