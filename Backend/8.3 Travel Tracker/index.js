@@ -68,12 +68,6 @@ async function isChosen(country){
   }
 }
 
-
-//Functions
-function capitalizeString(string){
-  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-}
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
@@ -87,7 +81,7 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/add", async (req,res)=>{
-  const country = capitalizeString(req.body.country);
+  const country = req.body.country;
   let error = "";
   
   if(! await isOnDataBase(country)){
