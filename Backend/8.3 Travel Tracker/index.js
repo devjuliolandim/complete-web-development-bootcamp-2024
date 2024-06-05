@@ -15,6 +15,7 @@ db.connect();
 
 let countries = [];
 
+//Async Functions
 async function fetchCountries(){
   try{
     const response = await db.query("SELECT country_code FROM visited_countries");
@@ -44,6 +45,11 @@ async function postCountry(country){
   }
 }
 
+//Functions
+function capitalizeString(string){
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
@@ -54,17 +60,14 @@ app.get("/", async (req, res) => {
 
   res.render("index.ejs", {countries, total: countries.length});
   console.log(countries);
-
-
 });
 
 app.post("/add", async (req,res)=>{
-  const country = req.body.country;
+  const country = capitalizeString(req.body.country);
   
   await postCountry(country);
 
   res.redirect("/");
-
 });
 
 app.listen(port, () => {
