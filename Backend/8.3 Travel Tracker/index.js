@@ -45,6 +45,30 @@ async function postCountry(country){
   }
 }
 
+async function isOnDataBase(country){
+  try{
+    const result = await db.query("SELECT country_name FROM countries WHERE country_name = $1", [country]);
+    return result.rows.length > 0;
+  }catch(err){
+    console.error("An error has ocurred during fetching DB", err.stack);
+  }
+}
+
+async function isChosen(country){
+  try{
+    //First I need the Country Code
+    const countryCodeResult  = await db.query("SELECT country_code FROM countries WHERE country_name = $1", [country]);
+    const countryCode = countryCodeResult.rows[0].country_code;
+    
+    const result = await db.query("SELECT country_code FROM visited_countries WHERE country_code = $1", [countryCode]);
+
+    return result.rows.length > 0;
+  } catch(err){
+    console.error("An error has occurred during fetching the Database", err.stack);
+  }
+}
+
+
 //Functions
 function capitalizeString(string){
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -64,10 +88,21 @@ app.get("/", async (req, res) => {
 
 app.post("/add", async (req,res)=>{
   const country = capitalizeString(req.body.country);
+  let error = "";
   
-  await postCountry(country);
+  if(! await isOnDataBase(country)){
+    error = `${country} is not a country on the database.`;
+  }else if(await isChosen(country)){
+    error = `${country} was already chosen.`
+  }else{
+    await postCountry(country);
+    res.redirect("/");
+    return;
+  }
 
-  res.redirect("/");
+  await fetchCountries();
+  res.render("index.ejs", {error, countries, total: countries.length});
+
 });
 
 app.listen(port, () => {
