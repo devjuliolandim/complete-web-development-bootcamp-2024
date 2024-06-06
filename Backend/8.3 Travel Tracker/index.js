@@ -26,18 +26,33 @@ async function fetchCountries(){
   }
 }
 
-async function postCountry(country){
+async function getCountryCode(country){
   try{
     const result = await db.query("SELECT country_code FROM countries WHERE country_name = $1", [country]);
 
     if(result.rows.length > 0){
-      const countryCode = result.rows[0].country_code;
+      return result.rows[0].country_code;
 
-      //Now let's insert this countryCode in the Database!
+    } else {
+      console.log("No country was found for" + country);
+      return null;
+    }
 
+  }catch(err){
+    console.error("An error has ocurred", err.stack);
+
+    throw err;
+  }
+}
+
+async function postCountry(country){
+  try{
+    const countryCode = await getCountryCode(country);
+
+    if(countryCode){
       await db.query("INSERT INTO visited_countries (country_code) VALUES ($1)", [countryCode]);
     }else{
-      console.log("No country was found for " + country);
+      console.log(`No country was found for ${country}`);
     }
 
   }catch(err){
@@ -51,14 +66,14 @@ async function isOnDataBase(country){
     return result.rows.length > 0;
   }catch(err){
     console.error("An error has ocurred during fetching DB", err.stack);
+    return false;
   }
 }
 
 async function isChosen(country){
   try{
     //First I need the Country Code
-    const countryCodeResult  = await db.query("SELECT country_code FROM countries WHERE country_name = $1", [country]);
-    const countryCode = countryCodeResult.rows[0].country_code;
+    const countryCode = await getCountryCode(country);
     
     const result = await db.query("SELECT country_code FROM visited_countries WHERE country_code = $1", [countryCode]);
 
@@ -86,8 +101,10 @@ app.post("/add", async (req,res)=>{
   
   if(! await isOnDataBase(country)){
     error = `${country} is not a country on the database.`;
+
   }else if(await isChosen(country)){
     error = `${country} was already chosen.`
+
   }else{
     await postCountry(country);
     res.redirect("/");
@@ -96,7 +113,6 @@ app.post("/add", async (req,res)=>{
 
   await fetchCountries();
   res.render("index.ejs", {error, countries, total: countries.length});
-
 });
 
 app.listen(port, () => {
