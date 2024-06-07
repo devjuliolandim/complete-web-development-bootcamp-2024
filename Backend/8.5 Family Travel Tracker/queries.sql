@@ -23,7 +23,6 @@ FROM student
 JOIN contact_detail
 ON student.id = contact_detail.id
 
-
 -- Many to One --
 CREATE TABLE homework_submission (
   id SERIAL PRIMARY KEY,
