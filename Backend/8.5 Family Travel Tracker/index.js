@@ -12,6 +12,7 @@ const db = new pg.Client({
   password: "123456",
   port: 5432,
 });
+
 db.connect();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,28 +20,56 @@ app.use(express.static("public"));
 
 let currentUserId = 1;
 
-let users = [
+/*let users = [
   { id: 1, name: "Angela", color: "teal" },
   { id: 2, name: "Jack", color: "powderblue" },
-];
+];*/
 
+
+//Async Functions
 async function checkVisisted() {
   const result = await db.query("SELECT country_code FROM visited_countries");
   let countries = [];
-  result.rows.forEach((country) => {
-    countries.push(country.country_code);
-  });
+
+  countries = result.rows.map((country)=> country.country_code);
+
   return countries;
 }
+
+async function queryUsers(){
+  try{
+    const result = await db.query("SELECT * FROM users");
+
+    const users = result.rows.map((user)=>({
+      id: user.id,
+      name: user.id,
+      color: user.color
+    }));
+
+    return users;
+  }catch(err){
+    console.error("Error querying users: ", err);
+    throw err;
+  }
+}
+
+
+//App Methods
 app.get("/", async (req, res) => {
+  
   const countries = await checkVisisted();
+  
+  const users = await queryUsers();
+
   res.render("index.ejs", {
     countries: countries,
     total: countries.length,
     users: users,
     color: "teal",
   });
+
 });
+
 app.post("/add", async (req, res) => {
   const input = req.body["country"];
 
@@ -52,6 +81,7 @@ app.post("/add", async (req, res) => {
 
     const data = result.rows[0];
     const countryCode = data.country_code;
+    
     try {
       await db.query(
         "INSERT INTO visited_countries (country_code) VALUES ($1)",
@@ -65,7 +95,11 @@ app.post("/add", async (req, res) => {
     console.log(err);
   }
 });
-app.post("/user", async (req, res) => {});
+
+app.post("/user", async (req, res) => {
+
+  
+});
 
 app.post("/new", async (req, res) => {
   //Hint: The RETURNING keyword can return the data that was inserted.
