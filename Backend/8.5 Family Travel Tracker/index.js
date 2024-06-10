@@ -20,20 +20,18 @@ app.use(express.static("public"));
 
 let currentUserId = 1;
 
-/*let users = [
-  { id: 1, name: "Angela", color: "teal" },
-  { id: 2, name: "Jack", color: "powderblue" },
-];*/
-
-
 //Async Functions
-async function checkVisisted() {
-  const result = await db.query("SELECT country_code FROM visited_countries");
-  let countries = [];
+async function checkVisisted(userID) {
+  try{
+    const result = await db.query("SELECT country_code FROM visited_countries WHERE user_id = $1", [userID]);
+    
+    const countries = result.rows.map((country)=> country.country_code);
 
-  countries = result.rows.map((country)=> country.country_code);
-
-  return countries;
+    return countries;
+  }catch(err){
+    console.error("Error querying visited countries: ", err);
+    throw err;
+  }
 }
 
 async function queryUsers(){
@@ -56,10 +54,12 @@ async function queryUsers(){
 //App Methods
 app.get("/", async (req, res) => {
   
-  const countries = await checkVisisted();
-
   const users = await queryUsers();
+  
+  const countries = await checkVisisted(users[0].id);
 
+  console.log(countries);
+  
   res.render("index.ejs", {
     countries: countries,
     total: countries.length,
@@ -96,7 +96,9 @@ app.post("/add", async (req, res) => {
 
 app.post("/user", async (req, res) => {
 
-  
+  const userID = req.body.user
+  const countries = await checkVisisted(userID);
+
 });
 
 app.post("/new", async (req, res) => {
