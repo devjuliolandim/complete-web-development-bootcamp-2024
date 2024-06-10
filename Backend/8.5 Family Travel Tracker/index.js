@@ -42,7 +42,7 @@ async function queryUsers(){
 
     const users = result.rows.map((user)=>({
       id: user.id,
-      name: user.id,
+      name: user.name,
       color: user.color
     }));
 
@@ -53,12 +53,11 @@ async function queryUsers(){
   }
 }
 
-
 //App Methods
 app.get("/", async (req, res) => {
   
   const countries = await checkVisisted();
-  
+
   const users = await queryUsers();
 
   res.render("index.ejs", {
@@ -67,7 +66,6 @@ app.get("/", async (req, res) => {
     users: users,
     color: "teal",
   });
-
 });
 
 app.post("/add", async (req, res) => {
