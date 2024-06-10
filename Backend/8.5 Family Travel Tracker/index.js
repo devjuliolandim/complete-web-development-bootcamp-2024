@@ -64,7 +64,7 @@ app.get("/", async (req, res) => {
     countries: countries,
     total: countries.length,
     users: users,
-    color: "teal",
+    color: users[0].color,
   });
 });
 
