@@ -20,6 +20,8 @@ app.use(express.static("public"));
 
 let currentUserId = 1;
 
+let users = [];
+
 //Async Functions
 async function checkVisisted(userID) {
   try{
@@ -51,14 +53,15 @@ async function queryUsers(){
   }
 }
 
+//Query all users
+(async () => {
+  users = await queryUsers();
+  console.log('Initial users loaded:', users); // Log dos usuários carregados inicialmente
+})();
+
 //App Methods
 app.get("/", async (req, res) => {
-  
-  const users = await queryUsers();
-  
   const countries = await checkVisisted(users[0].id);
-
-  console.log(countries);
   
   res.render("index.ejs", {
     countries: countries,
@@ -68,36 +71,38 @@ app.get("/", async (req, res) => {
   });
 });
 
-app.post("/add", async (req, res) => {
-  const input = req.body["country"];
-
-  try {
-    const result = await db.query(
-      "SELECT country_code FROM countries WHERE LOWER(country_name) LIKE '%' || $1 || '%';",
-      [input.toLowerCase()]
-    );
-
-    const data = result.rows[0];
-    const countryCode = data.country_code;
-    
-    try {
-      await db.query(
-        "INSERT INTO visited_countries (country_code) VALUES ($1)",
-        [countryCode]
-      );
-      res.redirect("/");
-    } catch (err) {
-      console.log(err);
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 app.post("/user", async (req, res) => {
+  const userID = Number(req.body.user);
+  console.log("User ID: " + userID);
 
-  const userID = req.body.user
-  const countries = await checkVisisted(userID);
+
+  if(isNaN(userID)){
+    return res.status(404).send("The ID is not a number")
+  }
+
+  try{
+
+    const userIndex = users.findIndex((user)=> user.id === userID);
+    console.log("User index: " + userIndex);
+
+    const countries = await checkVisisted(userID);
+    console.log("Countries: " + countries);
+
+    const color = users[userIndex].color;
+    console.log("Color: " + color  + "\n");
+
+    res.render("index.ejs", {
+      countries: countries,
+      total: countries.length,
+      users: users,
+      color: color
+    });
+
+  }catch(err){
+    console.error("An error has occurred", err.stack);
+    throw err;
+  }
+
 
 });
 
