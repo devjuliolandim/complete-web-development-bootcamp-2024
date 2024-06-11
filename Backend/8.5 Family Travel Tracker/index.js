@@ -56,10 +56,14 @@ async function queryUsers(){
 async function getCountryCode(country){
   try{
     const result = await db.query("SELECT country_code FROM countries WHERE country_name = $1", [country]);
+    let countryCode;
 
-    const country_code = result.rows[0].country_code;
-
-    return country_code;
+    if(result.rows.length > 0){
+      countryCode= result.rows[0].country_code;
+      return countryCode;
+    }else{
+      return null;
+    }
   }catch(err){
     console.error("Error finding country code", err.stack);
     throw err;
@@ -69,8 +73,6 @@ async function getCountryCode(country){
 async function postNewCountry(country_code){
   try{
     await db.query("INSERT INTO visited_countries (country_code, user_id) VALUES ($1,$2)", [country_code, currentUserId]);
-
-
   }catch(err){
     console.error("Error posting country in the database", err.stack);
     throw err;
@@ -133,19 +135,29 @@ app.post("/user", async (req, res) => {
 app.post("/add", async (req, res)=>{
   const reqCountry = req.body.country;
   const country_code = await getCountryCode(reqCountry);
-
-  await postNewCountry(country_code);
-
-  const countries = await checkVisisted(currentUserId);
-
   const userIndex = users.findIndex((user) => user.id === currentUserId);
 
-  res.render("index.ejs", {
-    countries: countries,
-    total: countries.length,
-    users: users,
-    color: users[userIndex].color
-  });
+  if(country_code){
+    await postNewCountry(country_code);
+
+    const countries = await checkVisisted(currentUserId);
+
+    res.render("index.ejs", {
+      countries: countries,
+      total: countries.length,
+      users: users,
+      color: users[userIndex].color
+    });
+  }else{
+    res.render("index.ejs", {
+      countries: countries,
+      total: countries.length,
+      users: users,
+      color: users[userIndex].color,
+      error: `No country was found for ${reqCountry}`
+    });
+  }
+
 });
 
 app.post("/new", async (req, res) => {
