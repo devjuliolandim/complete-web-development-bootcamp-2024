@@ -97,25 +97,16 @@ app.get("/", async (req, res) => {
 
 app.post("/user", async (req, res) => {
   const userID = Number(req.body.user);
-  console.log("User ID: " + userID);
-
   currentUserId = userID;
 
-
   if(isNaN(userID)){
-    return res.status(404).send("The ID is not a number")
+   return res.render("new.ejs");
   }
-
+  
   try{
-
     const userIndex = users.findIndex((user)=> user.id === userID);
-    console.log("User index: " + userIndex);
-
     const countries = await checkVisisted(userID);
-    console.log("Countries: " + countries);
-
     const color = users[userIndex].color;
-    console.log("Color: " + color  + "\n");
 
     res.render("index.ejs", {
       countries: countries,
@@ -128,8 +119,6 @@ app.post("/user", async (req, res) => {
     console.error("An error has occurred", err.stack);
     throw err;
   }
-
-
 });
 
 app.post("/add", async (req, res)=>{
