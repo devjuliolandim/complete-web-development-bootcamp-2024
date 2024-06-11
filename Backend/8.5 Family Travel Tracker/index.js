@@ -53,6 +53,30 @@ async function queryUsers(){
   }
 }
 
+async function getCountryCode(country){
+  try{
+    const result = await db.query("SELECT country_code FROM countries WHERE country_name = $1", [country]);
+
+    const country_code = result.rows[0].country_code;
+
+    return country_code;
+  }catch(err){
+    console.error("Error finding country code", err.stack);
+    throw err;
+  }
+}
+
+async function postNewCountry(country_code){
+  try{
+    await db.query("INSERT INTO visited_countries (country_code, user_id) VALUES ($1,$2)", [country_code, currentUserId]);
+
+
+  }catch(err){
+    console.error("Error posting country in the database", err.stack);
+    throw err;
+  }  
+}
+
 //Query all users
 (async () => {
   users = await queryUsers();
@@ -74,6 +98,8 @@ app.get("/", async (req, res) => {
 app.post("/user", async (req, res) => {
   const userID = Number(req.body.user);
   console.log("User ID: " + userID);
+
+  currentUserId = userID;
 
 
   if(isNaN(userID)){
@@ -104,6 +130,24 @@ app.post("/user", async (req, res) => {
   }
 
 
+});
+
+app.post("/add", async (req, res)=>{
+  const reqCountry = req.body.country;
+  const country_code = await getCountryCode(reqCountry);
+
+  await postNewCountry(country_code);
+
+  const countries = await checkVisisted(currentUserId);
+
+  const userIndex = users.findIndex((user) => user.id === currentUserId);
+
+  res.render("index.ejs", {
+    countries: countries,
+    total: countries.length,
+    users: users,
+    color: users[userIndex].color
+  });
 });
 
 app.post("/new", async (req, res) => {
