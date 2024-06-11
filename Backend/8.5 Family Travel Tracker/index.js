@@ -77,10 +77,19 @@ async function postNewCountry(country_code){
   }  
 }
 
-//Query all users
+async function createNewUser(newUser){
+  try{
+    await db.query("INSERT INTO users (name, color) VALUES ($1, $2)", [newUser.name, newUser.color]);
+  }catch(err){
+    console.error("Error occurred while creating a new user", err.stack);
+  }
+
+}
+
+//Query all users IIFE
 (async () => {
   users = await queryUsers();
-  console.log('Initial users loaded:', users); // Log dos usuários carregados inicialmente
+  console.log(users);
 })();
 
 //App Methods
@@ -102,7 +111,7 @@ app.post("/user", async (req, res) => {
   if(isNaN(userID)){
    return res.render("new.ejs");
   }
-  
+
   try{
     const userIndex = users.findIndex((user)=> user.id === userID);
     const countries = await checkVisisted(userID);
@@ -142,6 +151,16 @@ app.post("/add", async (req, res)=>{
 app.post("/new", async (req, res) => {
   //Hint: The RETURNING keyword can return the data that was inserted.
   //https://www.postgresql.org/docs/current/dml-returning.html
+
+  const newUser = {
+    name: req.body.name,
+    color: req.body.color
+  }
+
+  await createNewUser(newUser);
+  users = await queryUsers();
+
+  res.redirect("/");
 });
 
 app.listen(port, () => {
