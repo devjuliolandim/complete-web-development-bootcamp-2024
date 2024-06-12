@@ -63,6 +63,10 @@ form {
   margin-left: 20px;
 }
 
+button{
+  cursor: pointer;
+}
+
 button.add {
   min-height: 50px;
   width: 50px;
